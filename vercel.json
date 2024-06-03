@@ -22,13 +22,5 @@
       "src": "/(.*)",
       "dest": "/frontend/$1"
     }
-  ],
-  "build": {
-    "env": {
-      "CI": "false"
-    },
-    "commands": {
-      "install": "npm install --legacy-peer-deps"
-    }
-  }
+  ]
 }

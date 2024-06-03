@@ -1,5 +1,5 @@
 {
- "proxy": "http://localhost:8000/",
+ "proxy": "https://the-bread-way-53yg.vercel.app",
  "name": "frontend",
  "version": "0.1.0",
  "private": true,

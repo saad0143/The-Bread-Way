@@ -36,7 +36,6 @@ const admin = require('./controller/admin');
 
 
 
-
 app.use("/api/v2/user", user);
 app.use("/api/v2/shop", shop); 
 app.use("/api/v2/product", product); 
@@ -44,9 +43,7 @@ app.use("/api/v2/event", event);
 app.use("/api/v2/coupon", coupon); 
 app.use("/api/v2/order", order);
 app.use("/api/v2/conversation", conversation);
-
 app.use("/api/admin", admin);
-
 
 
 module.exports = app;

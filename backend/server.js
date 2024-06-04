@@ -1,3 +1,5 @@
+require('dotenv').config(); // Load environment variables
+
 const express = require("express");
 const app = express();
 const ErrorHandler = require("./utils/ErrorHandler");
@@ -17,7 +19,7 @@ const admin = require('./controller/admin');
 
 // Middleware
 app.use(cors({
-  origin: "https://the-bread-way-53yg.vercel.app",
+  origin: process.env.FRONTEND_URL,
   credentials: true,
 }));
 app.use(express.json());
@@ -41,9 +43,7 @@ app.use("/api/v2/conversation", conversation);
 app.use("/api/admin", admin);
 
 // MongoDB connection
-const DB_URL="mongodb+srv://SaadAnwar:deadpool001@cluster0.amcnqg1.mongodb.net/?retryWrites=true&w=majority"
-
-mongoose.connect(DB_URL, {
+mongoose.connect(process.env.MONGODB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -55,7 +55,7 @@ mongoose.connect(DB_URL, {
   });
 
 // Server setup
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 const server = app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
@@ -67,6 +67,10 @@ process.on("uncaughtException", (err) => {
   server.close(() => {
     process.exit(1);
   });
+});
+app.use((req, res, next) => {
+  console.log(`Incoming request: ${req.method} ${req.url}`);
+  next();
 });
 
 // Handling unhandled promise rejections

@@ -17,7 +17,7 @@ const admin = require('./controller/admin');
 
 // Middleware
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: "https://the-bread-way-53yg.vercel.app/",
   credentials: true,
 }));
 app.use(express.json());

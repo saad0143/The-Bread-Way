@@ -12,11 +12,7 @@ app.use(cors({
 
 app.use(express.json());
 app.use(cookieParser());
-app.use("/", express.static("uploads"));
-app.use((req, res, next) => {
-  console.log(`Request URL: ${req.url}`);
-  next();
-});
+app.use("/uploads", express.static("uploads"));
 
 // Config
 if (process.env.NODE_ENV !== "production") {
@@ -27,7 +23,14 @@ if (process.env.NODE_ENV !== "production") {
 
 const errorHandlerInstance = new ErrorHandler();
 
+// Logging middleware
+app.use((req, res, next) => {
+  console.log(`Request URL: ${req.url}`);
+  next();
+});
+
 app.use((err, req, res, next) => {
+  console.error(err.stack);
   errorHandlerInstance.handleError(err, req, res, next);
 });
 
@@ -50,5 +53,10 @@ app.use("/api/v2/coupon", coupon);
 app.use("/api/v2/order", order);
 app.use("/api/v2/conversation", conversation);
 app.use("/api/admin", admin);
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 
 module.exports = app;

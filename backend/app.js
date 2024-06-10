@@ -13,6 +13,10 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 app.use("/", express.static("uploads"));
+app.use((req, res, next) => {
+  console.log(`Request URL: ${req.url}`);
+  next();
+});
 
 // Config
 if (process.env.NODE_ENV !== "production") {
